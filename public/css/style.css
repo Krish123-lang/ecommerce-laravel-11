@@ -1747,6 +1747,7 @@ a:hover, a:focus {
   color: var(--Body-Text);
 }
 
+/* Chatgpt to remove okay */
 .upload-image {
   display: -webkit-box;
   display: -moz-box;
@@ -1755,6 +1756,8 @@ a:hover, a:focus {
   display: flex;
   gap: 10px;
 }
+/* Chatgpt:=> to remove okay */
+
 .upload-image .item {
   display: -webkit-box;
   display: -moz-box;

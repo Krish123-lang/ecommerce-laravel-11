@@ -1,5 +1,35 @@
 @extends('layouts.admin')
 
+{{-- @push('styles')
+    <style>
+        .item.gitems {
+            display: flex;
+            flex-direction: column;
+            align-items: center;    
+            margin: 10px;           
+        }
+        .gallery-img {
+            max-width: 100%;       
+            height: auto;
+            margin-bottom: 8px;    
+        }
+        .remove-img {
+            background-color: #f44336; 
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .remove-img:hover {
+            background-color: #d32f2f;
+            color: #fff;
+        }
+    </style>
+@endpush --}}
+
 @section('content')
 
     <!-- main-content-wrap -->
@@ -146,6 +176,19 @@
                                     </div>       
                                 @endforeach
                             @endif
+
+                            {{-- Chatgpt --}}
+                            {{-- @if ($product->images)
+                                <div id="existingGallery" class="d-flex">
+                                    @foreach (explode(',', $product->images) as $img)
+                                        <div class="item gitems">
+                                            <img src="{{ asset('uploads/products') }}/{{ trim($img) }}" alt="" class="gallery-img">
+                                            <button type="button" class="remove-img" data-filename="{{ trim($img) }}">Remove</button>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif --}}
+                            {{-- Chatgpt --}}
                             
                             
                             <div id="galUpload" class="item up-load">
@@ -156,9 +199,14 @@
                                     <span class="text-tiny">Drop your images here or select <span
                                             class="tf-color">click to browse</span></span>
                                     <input type="file" id="gFile" name="images[]" accept="image/*"
-                                        multiple="">
+                                        multiple>
                                 </label>
                             </div>
+
+                            {{-- chatgpt --}}
+                            {{-- <div id="galleryContainer" class="gallery-container d-flex"></div>
+                            <input type="hidden" name="deleted_images" id="deletedImages" value=""> --}}
+                            {{-- chatgpt --}}
                         </div>
                     </fieldset>
                     @error('images')<div class="alert alert-danger text-center">{{ $message }}</div>@enderror
@@ -277,3 +325,51 @@
 @endpush
 
 
+{{-- chatgpt --}}
+{{-- @push('scripts')
+<script>
+    $(function () {
+        $("#myFile").on("change", function(e) {
+                const photoInp=$("#myFile");
+                const [file]=this.files;
+                if (file) {
+                    $("#imgpreview img").attr("src",URL.createObjectURL(file));
+                    $("#imgpreview").show();
+                }
+            });
+            
+        $("#gFile").on("change", function () {
+            const files = this.files;
+            const galleryContainer = $("#galleryContainer");
+            let imagesHTML = "";
+
+            $.each(files, function (key, file) {
+                const imageUrl = URL.createObjectURL(file);
+                imagesHTML += `
+                    <div class="item gitems">
+                        <img src="${imageUrl}" alt="New Image">
+                    </div>`;
+            });
+
+            galleryContainer.append(imagesHTML);
+        });
+
+        $(document).on("click", ".remove-img", function () {
+            const filename = $(this).data("filename");
+            const deletedImages = $("#deletedImages").val();
+
+            $("#deletedImages").val(deletedImages ? deletedImages + ',' + filename : filename);
+            $(this).parent().remove();
+        });
+
+        $("input[name='name']").on("change", function () {
+            $("input[name='slug']").val(StringToSlug($(this).val()));
+        });
+    });
+
+    function StringToSlug(Text) {
+        return Text.toLowerCase().replace(/[^\w ]+/g, "").replace(/ +/g, "-");
+    }
+</script>
+@endpush --}}
+{{-- chatgpt --}}

@@ -366,6 +366,81 @@ class AdminController extends Controller
         $product->save();
         return redirect()->route('admin.products')->with('status', 'Product updated successfully');
     }
+
+    // chatgpt
+//     public function products_update(Request $request)
+// {
+//     $request->validate([
+//         'name' => 'required',
+//         'slug' => 'required|unique:products,slug,' . $request->id,
+//         'short_description' => 'required',
+//         'description' => 'required',
+//         'regular_price' => 'required|numeric',
+//         'sale_price' => 'nullable|numeric',
+//         'SKU' => 'required',
+//         'stock_status' => 'required',
+//         'featured' => 'required',
+//         'quantity' => 'required|numeric',
+//         'image' => 'mimes:jpeg,png,jpg|max:2048',
+//         'category_id' => 'required',
+//         'brand_id' => 'required',
+//     ]);
+
+//     $product = Product::find($request->id);
+//     $product->name = $request->name;
+//     $product->slug = $request->slug;
+//     $product->short_description = $request->short_description;
+//     $product->description = $request->description;
+//     $product->regular_price = $request->regular_price;
+//     $product->sale_price = $request->sale_price;
+//     $product->SKU = $request->SKU;
+//     $product->stock_status = $request->stock_status;
+//     $product->featured = $request->featured;
+//     $product->quantity = $request->quantity;
+//     $product->category_id = $request->category_id;
+//     $product->brand_id = $request->brand_id;
+
+//     $current_timestamp = Carbon::now()->timestamp;
+
+//     if ($request->hasFile('image')) {
+//         if (File::exists(public_path('uploads/products') . '/' . $product->image)) {
+//             File::delete(public_path('uploads/products') . '/' . $product->image);
+//         }
+
+//         $image = $request->file('image');
+//         $imageName = $current_timestamp . '.' . $image->extension();
+//         $this->GenerateProductThumbnailsImage($image, $imageName);
+//         $product->image = $imageName;
+//     }
+
+//     $existingImages = $product->images ? explode(',', $product->images) : [];
+//     $deletedImages = explode(',', $request->deleted_images);
+//     $galleryImages = array_diff($existingImages, $deletedImages);
+
+//     if ($request->hasFile('images')) {
+//         $files = $request->file('images');
+//         $counter = 1;
+
+//         foreach ($files as $file) {
+//             $gfileName = $current_timestamp . '-' . $counter . '.' . $file->getClientOriginalExtension();
+//             $this->GenerateProductThumbnailsImage($file, $gfileName);
+//             $galleryImages[] = $gfileName;
+//             $counter++;
+//         }
+//     }
+
+//     foreach ($deletedImages as $file) {
+//         if (File::exists(public_path('uploads/products') . '/' . $file)) {
+//             File::delete(public_path('uploads/products') . '/' . $file);
+//         }
+//     }
+
+//     $product->images = implode(',', $galleryImages);
+//     $product->save();
+//     return redirect()->route('admin.products')->with('status', 'Product updated successfully');
+// }
+
+    // chatgpt
     public function products_delete($id){
         $product=Product::find($id);
         if (File::exists(public_path('uploads/products') . '/' . $product->image)) {
